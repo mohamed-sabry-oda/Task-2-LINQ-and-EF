@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using static Task_2_LINQ.ListGenerators;
 
 namespace Task_2_LINQ
@@ -112,6 +114,171 @@ namespace Task_2_LINQ
             //foreach (var Result03 in Result02)
             //{
             //    Console.WriteLine(Result03);
+            //}
+
+
+            //3. Sort a list of products by units in stock from highest to lowest.
+            //var Result03 = ProductList.OrderByDescending(x => x.UnitsInStock);
+
+            //foreach (var item in Result03)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            ////4. Sort a list of digits, first by length of their name, and then alphabetically by the name itself.
+
+            //string[] Arr = { "zero", "one", "two", "three", 
+            //                "four", "five", "six", "seven", "eight","nine" };
+            //var Result04 = Arr.OrderBy(x => x.Length)
+            //                  .ThenBy(x => x);
+
+            //foreach (var item in Result04)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            ////5. Sort first by word length and then by a case-insensitive sort of the words in an array.
+
+            //string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
+
+
+            //var Result05 = words.OrderBy(x => x.Length)
+            //                    .ThenBy(x => x,StringComparer.OrdinalIgnoreCase);
+
+            //foreach(var item in Result05)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            ////6. Sort a list of products, first by category, and then by unit price, from highest to lowest.
+            //var Result06 = ProductList.OrderBy(x => x.Category)
+            //                          .ThenByDescending(x => x.UnitPrice);
+
+            //foreach(var item in Result06)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            ////7. Sort first by word length and then by a case-insensitive descending sort of the words in 
+            ////an array. 
+            //string[] Arr = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
+
+            //var Result07 = Arr.OrderBy(x => x.Length).ThenByDescending(x => x,StringComparer.OrdinalIgnoreCase);
+
+            //foreach(var item in Result07)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            ////8.Create a list of all digits in the array whose second letter is 'i' that is reversed from the
+            ////order in the original array.
+            //string[] Arr = { "zero", "one", "two", "three", "four", 
+            //                "five", "six", "seven", "eight","nine" };
+
+            //var Result08 = Arr.Where(x => x[1] == 'i')
+            //                  .Reverse();
+
+            //foreach (var item in Result08)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+
+            #region Transformation Operators 
+            ////1.Return a sequence of just the names of a list of products.
+            //var Result01 = ProductList.Select(x => x.ProductName);
+
+            //foreach (var item in Result01)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            ///*2. Produce a sequence of the uppercase and lowercase versions of each word in the 
+            //original array(Anonymous Types).*/
+
+            //string[] words = { "aPPLE", "BlUeBeRrY", "cHeRry" };
+            //var Result02 = words.Select(x => new { UpperCase = x.ToUpper() , LowerCase = x.ToLower() });
+
+            //foreach (var item in Result02)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            ////3. Produce a sequence containing some properties of Products, including UnitPrice which 
+            ////is renamed to Price in the resulting type.
+
+            //var Result03 = ProductList.Select(x => new { x.ProductName,x.UnitsInStock,Price = x.UnitPrice });
+
+            //foreach (var result in Result03)
+            //{
+            //    Console.WriteLine(result);
+            //}
+
+            ////4. Determine if the value of ints in an array match their position in the array. 
+            //int[] Arr = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+
+            //var Result04 = Arr.Select((value, index) => new { value , y =(value == index)});
+
+            //foreach (var item in Result04)
+            //{
+            //    Console.WriteLine($"{item.value} : {item.y}");
+            //}
+
+
+
+            #endregion
+
+
+            #region  Partitioning Operators
+            ////1.Get the first 3 orders from customers in Washington
+            //var Result01 = CustomerList.SelectMany(x => x.Orders).Take(3);
+
+            //foreach (var item in Result01)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            ////2. Get all but the first 2 orders from customers in Washington.
+            //var Result02 = CustomerList.SelectMany(x => x.Orders).Take(2);
+
+            //foreach (var item in Result02)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            ////3. Return elements starting from the beginning of the array until a number is hit that is 
+            ////less than its position in the array. 
+            //int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+            //var Result03 = numbers.TakeWhile((x, index) => x > index);
+
+            //foreach (var result in Result03)
+            //{
+            //    Console.WriteLine(result);
+            //}
+
+            ////4.Get the elements of the array starting from the first element divisible by 3. 
+            //int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+
+            //var Result04 = numbers.SkipWhile(x => x % 3 != 0);
+
+            //foreach (var item in Result04)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            ////5. Get the elements of the array starting from the first element less than its position. 
+            //int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+
+            //var Result05 = numbers.SkipWhile((value, index) => value > index);
+
+            //foreach (var value in Result05)
+            //{
+            //    Console.WriteLine(value);
             //}
             #endregion
 
